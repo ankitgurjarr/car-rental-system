@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Available Cars to Rent</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #car-list {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .car {
+            width: 25%;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+        </ul>
+      </nav>
+    <h1>Available Cars to Rent</h1>
+    <div id="car-list"></div>
+    <form id="rental-form" style="display: none;">
+        <label for="start-date">Start Date:</label>
+        <input type="date" id="start-date" name="start-date"><br>
+        <label for="days">Number of Days:</label>
+        <select id="days" name="days">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select><br>
+        <button type="submit" id="rent-car-button">Rent Car</button>
+    </form>
+    <script>
+        const cars = [
+            {
+                model: "Honda Civic",
+                number: "123ABC",
+                seats: 5,
+                rent: 3400
+            },
+            {
+                model: "Vitata Brezza",
+                number: "456DEF",
+                seats: 5,
+                rent: 5500
+            },
+            {
+                model: "Bolero",
+                number: "789GHI",
+                seats: 7,
+                rent: 6900
+            }
+        ];
+
+        let loggedIn = true; // set this variable to true if the customer is logged in
+
+        const carList = document.getElementById("car-list");
+        let carElements = "";
+        for (let i = 0; i < cars.length; i++) {
+            const car = cars[i];
+            carElements += `<div class="car">
+    <h2>${car.model}</h2>
+    <p>Vehicle Number: ${car.number}</p>
+    <p>Seating Capacity: ${car.seats}</p>
+    <p>Rent per day: $${car.rent}</p>`;
+            if (loggedIn) {
+                carElements += `<label for="days">Number of days:</label>
+    <select id="days" name="days">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+    <label for="start-date">Start date:</label>
+    <input type="date" id="start-date" name="start-date">
+    <button id="rent-car" onclick="rentCar(${i})">Rent Car</button>`;
+            }
+            carElements += `</div>`;
+        }
+        carList.innerHTML = carElements;
+
+        function rentCar(index) {
+            const days = document.getElementById("days").value;
+            const startDate = document.getElementById("start-date").value;
+            const car = cars[index];
+            const total = days * car.rent;
+            // add code here to handle the car rental, e.g. updating the inventory,
+            // calculating the total cost, etc.
+            alert(`You have rented the ${car.model} for ${days} days starting on ${startDate}. The total cost is $${total}.`);
+        }
+
+    </script>
+</body>
+
+</html>

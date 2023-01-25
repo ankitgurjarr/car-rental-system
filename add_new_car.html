@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add/Edit Cars</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="booked_car.html">Booked Cars</a></li>
+        </ul>
+    </nav>
+    <h1>Add/Edit Cars</h1>
+    <form id="add-edit-form">
+        <label for="model">Model:</label>
+        <input type="text" id="model" name="model"><br>
+        <label for="vehicle-number">Vehicle Number:</label>
+        <input type="text" id="vehicle-number" name="vehicle-number"><br>
+        <label for="seating-capacity">Seating Capacity:</label>
+        <input type="number" id="seating-capacity" name="seating-capacity"><br>
+        <label for="rent-per-day">Rent per Day:</label>
+        <input type="number" id="rent-per-day" name="rent-per-day"><br>
+        <button type="submit" id="submit-button">submit</button>
+    </form>
+    <script>
+        const cars = [];
+
+        // Function to add a new car to the inventory
+        function addCar(model, vehicleNumber, seatingCapacity, rentPerDay) {
+            cars.push({ model, vehicleNumber, seatingCapacity, rentPerDay });
+        }
+
+        // Function to edit a car's details
+        function editCar(index, model, vehicleNumber, seatingCapacity, rentPerDay) {
+            cars[index] = { model, vehicleNumber, seatingCapacity, rentPerDay };
+        }
+
+        // Function to check if user is logged in as car rental agency
+        function checkLogin() {
+            // Code to check if user is logged in as car rental agency
+            // If user is logged in, return true
+            // If user is not logged in, return false
+        }
+
+        // Function to add new car to inventory
+        function addNewCar() {
+            if (checkLogin()) {
+                // Get input values from the form
+                const model = document.getElementById("model").value;
+                const vehicleNumber = document.getElementById("vehicle-number").value;
+                const seatingCapacity = document.getElementById("seating-capacity").value;
+                const rentPerDay = document.getElementById("rent-per-day").value;
+
+                // Add new car to the inventory
+                addCar(model, vehicleNumber, seatingCapacity, rentPerDay);
+            } else {
+                // Show error message or redirect to login page
+                alert("You must be logged in as a car rental agency to add new cars.");
+            }
+        }
+
+        // Function to edit a car's details
+        function editCarDetails() {
+            if (checkLogin()) {
+                // Get input values from the form
+                const index = document.getElementById("car-index").value;
+                const model = document.getElementById("model").value;
+                const vehicleNumber = document.getElementById("vehicle-number").value;
+                const seatingCapacity = document.getElementById("seating-capacity").value;
+                const rentPerDay = document.getElementById("rent-per-day").value;
+
+                // Edit car's details in the inventory
+                editCar(index, model, vehicleNumber, seatingCapacity, rentPerDay);
+            } else {
+                // Show error message or redirect to login page
+                alert("You must be logged in as a car rental agency to edit car details.");
+            }
+        }
+
+    </script>
+</body>
+
+</html>

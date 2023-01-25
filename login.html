@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #login-form {
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        #login-as {
+            margin-top: 20px;
+        }
+
+        #login-as label {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="customer_regis.html">Customer Registration</a></li>
+            <li><a href="agency_regis.html">Car Rental Agency Registration</a></li>
+        </ul>
+    </nav>
+    <h1>Login</h1>
+    <form id="login-form">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email"><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password"><br>
+        <div id="login-as">
+            <input type="radio" id="customer-radio" name="login-as" value="customer" checked>
+            <label for="customer-radio">Customer</label>
+            <input type="radio" id="agency-radio" name="login-as" value="agency">
+            <label for="agency-radio">Car Rental Agency</label>
+        </div>
+        <button type="submit" id="login-button">Login</button>
+    </form>
+    <script>
+        const loginForm = document.getElementById("login-form");
+        const email = document.getElementById("email");
+        const password = document.getElementById("password");
+
+        let customers = [{ email: "customer1@example.com", password: "1234" },
+        { email: "customer2@example.com", password: "5678" }];
+
+        let agencies = [{ email: "agency1@example.com", password: "abcd" },
+        { email: "agency2@example.com", password: "efgh" }];
+
+        loginForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            const emailValue = email.value;
+            const passwordValue = password.value;
+
+            // check if the email and password match a customer
+            for (let i = 0; i < customers.length; i++) {
+                if (emailValue === customers[i].email && passwordValue === customers[i].password) {
+                    alert("Welcome, customer!");
+                    return;
+                }
+            }
+
+            // check if the email and password match a car rental agency
+            for (let i = 0; i < agencies.length; i++) {
+                if (emailValue === agencies[i].email && passwordValue === agencies[i].password) {
+                    alert("Welcome, car rental agency!");
+                    return;
+                }
+            }
+
+            // if no match is found, display an error message
+            alert("Invalid email or password. Please try again.");
+        });
+
+    </script>
+</body>
+
+</html>

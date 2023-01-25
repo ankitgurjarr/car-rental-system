@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booked Cars </title>
+</head>
+
+<body>
+    <style>
+        /* CSS Styles */
+        #booked-cars-container {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        #booked-cars-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #booked-cars-table th,
+        #booked-cars-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        #booked-cars-table th {
+            background-color: #f2f2f2;
+        }
+    </style>
+
+    <div id="booked-cars-container">
+        <h2>Booked Cars</h2>
+        <table id="booked-cars-table">
+            <thead>
+                <tr>
+                    <th>Car</th>
+                    <th>Customer Name</th>
+                    <th>Pickup Date</th>
+                    <th>Return Date</th>
+                </tr>
+            </thead>
+            <tbody id="booked-cars-list"></tbody>
+        </table>
+    </div>
+    <script>
+        // JavaScript Code
+        const bookedCarsList = document.getElementById("booked-cars-list");
+
+        // get data from server
+        fetch("/booked-cars")
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(car => {
+                    // create table row
+                    const row = document.createElement("tr");
+
+                    // create table data for car
+                    const carData = document.createElement("td");
+                    carData.textContent = car.car;
+                    row.appendChild(carData);
+
+                    // create table data for customer name
+                    const customerData = document.createElement("td");
+                    customerData.textContent = car.customer;
+                    row.appendChild(customerData);
+
+                    // create table data for pickup date
+                    const pickupDateData = document.createElement("td");
+                    pickupDateData.textContent = car.pickupDate;
+                    row.appendChild(pickupDateData);
+
+                    // create table data for return date
+                    const returnDateData = document.createElement("td");
+                    returnDateData.textContent = car.returnDate;
+                    row.appendChild(returnDateData);
+
+                    // append row to table
+                    bookedCarsList.appendChild(row);
+                });
+            })
+            .catch(error => console.log(error));
+
+    </script>
+</body>
+
+</html>

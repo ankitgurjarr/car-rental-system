@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>customer registration page </title>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="car_avilable.html">Available Cars</a></li>
+        </ul>
+    </nav>
+
+    <!-- Customer Registration Form -->
+
+    <form id="customer-registration-form">
+        <h2>Customer Registration</h2>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email"><br>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address"><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password"><br>
+
+        <label for="drivers-license">Driver's License:</label>
+        <input type="text" id="drivers-license" name="drivers-license"><br>
+
+        <input type="submit" value="Submit">
+    </form>
+    <script>
+        // Customer registration form
+        const customerForm = document.getElementById("customer-form");
+        const customerSubmitButton = document.getElementById("customer-submit-button");
+
+        customerForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById("customer-name").value;
+            const email = document.getElementById("customer-email").value;
+            const password = document.getElementById("customer-password").value;
+
+            // validation
+            if (!name || !email || !password) {
+                alert("All fields are required.");
+                return;
+            }
+
+            // send the data to the server for registration
+            // and handle the response
+            fetch("/register-customer", {
+                method: "POST",
+                body: JSON.stringify({ name: name, email: email, password: password }),
+                headers: { "Content-Type": "application/json" }
+            })
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    if (data.success) {
+                        alert("Customer registered successfully!");
+                    } else {
+                        alert("Error: " + data.message);
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>car rental agency registration form </title>
+</head>
+
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="add_new_car.html">Add/Edit New Car</a></li>
+    </ul>
+  </nav>
+
+  <!-- Car Rental Agency Registration Form -->
+
+  <form id="agency-registration-form">
+    <h2>Car Rental Agency Registration</h2>
+    <label for="agency-name">Agency Name:</label>
+    <input type="text" id="agency-name" name="agency-name"><br>
+
+    <label for="contact-name">Contact Name:</label>
+    <input type="text" id="contact-name" name="contact-name"><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email"><br>
+
+    <label for="phone">Phone:</label>
+    <input type="text" id="phone" name="phone"><br>
+
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address"><br>
+
+    <label for="website">Website:</label>
+    <input type="text" id="website" name="website"><br>
+
+    <label for="business-license">Business License:</label>
+    <input type="text" id="business-license" name="business-license"><br>
+
+    <input type="submit" value="Submit">
+  </form>
+  <script>
+    // Car rental agency registration form
+    const agencyForm = document.getElementById("agency-form");
+    const agencySubmitButton = document.getElementById("agency-submit-button");
+
+    agencyForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const name = document.getElementById("agency-name").value;
+      const email = document.getElementById("agency-email").value;
+      const password = document.getElementById("agency-password").value;
+
+      // validation
+      if (!name || !email || !password) {
+        alert("All fields are required.");
+        return;
+      }
+
+      // send the data to the server for registration
+      // and handle the response
+      fetch("/register-agency", {
+        method: "POST",
+        body: JSON.stringify({ name: name, email: email, password: password }),
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          if (data.success) {
+            alert("Car rental agency registered successfully!");
+          } else {
+            alert("Error: " + data.message);
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    });
+  </script>
+</body>
+
+</html>
